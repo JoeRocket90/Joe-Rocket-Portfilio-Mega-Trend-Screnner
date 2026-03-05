@@ -1,4 +1,5 @@
 import os
+import time
 import datetime as dt
 from dataclasses import dataclass
 from typing import Optional, List, Dict
@@ -61,14 +62,13 @@ def load_watchlist(path: str = "watchlist.txt") -> List[str]:
 
 
 # ---------------------------
-# Data validation
+# Data validation / normalization
 # ---------------------------
 def utc_today() -> dt.date:
     return dt.datetime.utcnow().date()
 
 def drop_incomplete_today_bar(df: pd.DataFrame) -> pd.DataFrame:
-    # yfinance kann am laufenden Handelstag eine "Teil"-Tageskerze liefern.
-    # Wir entfernen diese, falls der letzte Index-Tag = heute (UTC) ist.
+    """Remove partial daily candle if yfinance included today's in-progress bar."""
     if df is None or df.empty:
         return df
     last_date = pd.to_datetime(df.index[-1]).date()
@@ -77,19 +77,23 @@ def drop_incomplete_today_bar(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def normalize_yfinance_ohlcv(df: pd.DataFrame, ticker: str) -> pd.DataFrame:
+    """
+    yfinance can return MultiIndex columns e.g. ('Close','MSFT').
+    This normalizes to single-level OHLCV columns: Open/High/Low/Close/Volume
+    """
     if df is None or df.empty:
         return df
 
-    # Falls MultiIndex: z.B. ('Close','MSFT') -> nur die Spalten für diesen Ticker ziehen
+    # Handle MultiIndex columns
     if isinstance(df.columns, pd.MultiIndex):
-        # häufig: Level0 = OHLCV, Level1 = Ticker
+        # common: level0 = OHLCV, level1 = ticker
         if ticker in df.columns.get_level_values(-1):
             df = df.xs(ticker, axis=1, level=-1, drop_level=True)
         else:
-            # fallback: nur das erste Level behalten
+            # fallback: keep first level
             df.columns = df.columns.get_level_values(0)
 
-    # Nur Standardspalten behalten (Adj Close ignorieren)
+    # Keep standard columns only
     wanted = ["Open", "High", "Low", "Close", "Volume"]
     cols = [c for c in wanted if c in df.columns]
     return df[cols].copy()
@@ -100,8 +104,6 @@ def last_full_bar_date(df: pd.DataFrame) -> Optional[dt.date]:
     return pd.to_datetime(df.index[-1]).date()
 
 def trading_day_age(last_date: dt.date, now_date: dt.date) -> int:
-    # Business-day count (Mon–Fri), ohne Feiertage (good enough for daily verification).
-    # 0 = same day, 1 = next business day, etc.
     a = np.datetime64(last_date)
     b = np.datetime64(now_date)
     return int(np.busday_count(a, b))
@@ -109,8 +111,7 @@ def trading_day_age(last_date: dt.date, now_date: dt.date) -> int:
 def is_data_current(last_date: Optional[dt.date], max_trading_days: int = 2) -> bool:
     if last_date is None:
         return False
-    age = trading_day_age(last_date, utc_today())
-    return age <= max_trading_days
+    return trading_day_age(last_date, utc_today()) <= max_trading_days
 
 
 # ---------------------------
@@ -133,7 +134,6 @@ def trend_filter_ok(row: pd.Series) -> bool:
     return (row["Close"] > row["EMA50"]) and (row["EMA20"] > row["EMA50"])
 
 def setup_pullback_reclaim(df: pd.DataFrame) -> bool:
-    # Pullback zur EMA20, dann bullischer Reclaim: gestern <= EMA20, heute > EMA20
     if len(df) < 60:
         return False
     prev = df.iloc[-2]
@@ -143,7 +143,6 @@ def setup_pullback_reclaim(df: pd.DataFrame) -> bool:
     return (prev["Close"] <= prev["EMA20"]) and (cur["Close"] > cur["EMA20"]) and (cur["RSI14"] >= 45)
 
 def setup_breakout_20d(df: pd.DataFrame) -> bool:
-    # Close > 20T-Hoch + Volumen > 1.2x VolMA20
     if len(df) < 60:
         return False
     cur = df.iloc[-1]
@@ -155,8 +154,6 @@ def setup_breakout_20d(df: pd.DataFrame) -> bool:
     return (cur["Close"] > cur["HH20"]) and vol_ok
 
 def setup_newcomer_radar(df: pd.DataFrame) -> bool:
-    # A) nahe 52W-Hoch + Volumen, oder
-    # B) erstes nachhaltiges EMA20>EMA50 nach Base (frisch) + Volumen
     if len(df) < 260:
         return False
     cur = df.iloc[-1]
@@ -224,7 +221,7 @@ def make_signal_card(ticker: str, df: pd.DataFrame, setup: str, data_source: str
         stop_level = max(float(cur["EMA50"]), float(cur["Close"]) - 2.0 * atr14) if atr14 > 0 else float(cur["EMA50"])
         trigger = f"Bestätigung: nächster Tag über Tageshoch ODER erneuter Close > EMA20 ({cur['EMA20']:.2f})"
         stop = f"Invalidation: Tagesschluss < {stop_level:.2f} (unter EMA50/ATR)"
-    else:  # Newcomer
+    else:
         hh20 = float(cur["HH20"]) if not pd.isna(cur["HH20"]) else float(cur["Close"])
         stop_level = float(cur["EMA50"])
         trigger = f"Bestätigung: Tagesschluss > {hh20:.2f} UND Volumen > 1.2×MA20"
@@ -290,8 +287,7 @@ def write_report(cards: List[SignalCard], path_md: str, header: str):
 def main():
     if not should_run_now():
         print("Skip: not target hour in Europe/Berlin (09/16).")
-        # Still write "No trade" files to keep repo consistent
-        header = f"# Megatrend Screener – Signale (Daily)\n\n**Zeitpunkt:** {dt.datetime.now().strftime('%Y-%m-%d %H:%M')} (Europe/Berlin)\n\n"
+        header = f"# Megatrend Screener – Signale (Daily)\n\n**Zeitpunkt:** {dt.datetime.now(ZoneInfo('Europe/Berlin')).strftime('%Y-%m-%d %H:%M')} (Europe/Berlin)\n\n"
         write_report([], "signals_report.md", header)
         pd.DataFrame([{"status":"skip", "reason":"not target hour (Berlin 09/16)"}]).to_csv("signals.csv", index=False)
         return
@@ -303,8 +299,17 @@ def main():
 
     for t in tickers:
         try:
-            df = yf.download(t, period="5y", interval="1d", auto_adjust=True, progress=False)
+            df = yf.download(
+                t,
+                period="5y",
+                interval="1d",
+                auto_adjust=True,
+                progress=False,
+                threads=False,
+            )
+            df = normalize_yfinance_ohlcv(df, t)
             df = drop_incomplete_today_bar(df)
+
             if df is None or df.empty or len(df) < 220:
                 rows.append({"ticker": t, "status": "skip", "reason": "zu wenig Daten"})
                 continue
@@ -346,6 +351,9 @@ def main():
                 "trigger": card.trigger,
                 "stop": card.stop,
             })
+
+            time.sleep(0.7)  # kleine Pause (hilft gegen Yahoo Rate-Limits)
+
         except Exception as e:
             rows.append({"ticker": t, "status": "error", "reason": str(e)})
 
