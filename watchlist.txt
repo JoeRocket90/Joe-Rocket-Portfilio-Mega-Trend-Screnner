@@ -1,0 +1,46 @@
+# AI / Cloud / Semis (Core Leaders)
+MSFT
+AAPL
+AMZN
+GOOGL
+META
+NVDA
+AMD
+AVGO
+ASML
+TSM
+
+# Cybersecurity
+CRWD
+PANW
+FTNT
+ZS
+
+# Robotics / Automation / Industrial AI (inkl. Newcomer)
+SYM
+ISRG
+TER
+ROK
+HON
+ABB
+
+# Energy Transition / Grid / Storage
+NEE
+FSLR
+ENPH
+
+# Defense / Space
+LMT
+RTX
+
+# Healthtech / GLP-1
+LLY
+NVO
+
+# EU Beispiele (Yahoo-Suffixe) – bei Bedarf aktivieren:
+# SAP.DE
+# SIE.DE
+# AIR.PA
+# SU.PA
+# ASML.AS
+# NOVO-B.CO
