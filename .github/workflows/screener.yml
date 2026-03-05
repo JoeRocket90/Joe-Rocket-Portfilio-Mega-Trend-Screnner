@@ -1,0 +1,47 @@
+name: Megatrend Screener (Daily)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Cron läuft in UTC. Wir triggern beide UTC-Varianten (Sommer/Winterzeit).
+    # Das Script selbst prüft Europe/Berlin (09/16) und läuft nur dann wirklich.
+    - cron: "5 7 * * 1-5"
+    - cron: "5 8 * * 1-5"
+    - cron: "5 14 * * 1-5"
+    - cron: "5 15 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  run-screener:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run screener
+        run: |
+          python megatrend_screener.py
+
+      - name: Commit outputs (if changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add signals.csv signals_report.md || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update signals"
+            git push
+          fi
