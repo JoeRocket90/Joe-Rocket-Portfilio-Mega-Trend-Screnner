@@ -1,0 +1,28 @@
+ticker,status,reason
+MSFT,error,Can only compare identically-labeled Series objects
+AAPL,error,Can only compare identically-labeled Series objects
+AMZN,error,Can only compare identically-labeled Series objects
+GOOGL,error,Can only compare identically-labeled Series objects
+META,error,Can only compare identically-labeled Series objects
+NVDA,error,Can only compare identically-labeled Series objects
+AMD,error,Can only compare identically-labeled Series objects
+AVGO,error,Can only compare identically-labeled Series objects
+ASML,error,Can only compare identically-labeled Series objects
+TSM,error,Can only compare identically-labeled Series objects
+CRWD,error,Can only compare identically-labeled Series objects
+PANW,error,Can only compare identically-labeled Series objects
+FTNT,error,Can only compare identically-labeled Series objects
+ZS,error,Can only compare identically-labeled Series objects
+SYM,error,Can only compare identically-labeled Series objects
+ISRG,error,Can only compare identically-labeled Series objects
+TER,error,Can only compare identically-labeled Series objects
+ROK,error,Can only compare identically-labeled Series objects
+HON,error,Can only compare identically-labeled Series objects
+ABB,skip,zu wenig Daten
+NEE,error,Can only compare identically-labeled Series objects
+FSLR,error,Can only compare identically-labeled Series objects
+ENPH,error,Can only compare identically-labeled Series objects
+LMT,error,Can only compare identically-labeled Series objects
+RTX,error,Can only compare identically-labeled Series objects
+LLY,error,Can only compare identically-labeled Series objects
+NVO,error,Can only compare identically-labeled Series objects
