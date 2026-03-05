@@ -76,6 +76,24 @@ def drop_incomplete_today_bar(df: pd.DataFrame) -> pd.DataFrame:
         return df.iloc[:-1]
     return df
 
+def normalize_yfinance_ohlcv(df: pd.DataFrame, ticker: str) -> pd.DataFrame:
+    if df is None or df.empty:
+        return df
+
+    # Falls MultiIndex: z.B. ('Close','MSFT') -> nur die Spalten für diesen Ticker ziehen
+    if isinstance(df.columns, pd.MultiIndex):
+        # häufig: Level0 = OHLCV, Level1 = Ticker
+        if ticker in df.columns.get_level_values(-1):
+            df = df.xs(ticker, axis=1, level=-1, drop_level=True)
+        else:
+            # fallback: nur das erste Level behalten
+            df.columns = df.columns.get_level_values(0)
+
+    # Nur Standardspalten behalten (Adj Close ignorieren)
+    wanted = ["Open", "High", "Low", "Close", "Volume"]
+    cols = [c for c in wanted if c in df.columns]
+    return df[cols].copy()
+
 def last_full_bar_date(df: pd.DataFrame) -> Optional[dt.date]:
     if df is None or df.empty:
         return None
