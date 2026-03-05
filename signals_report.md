@@ -1,6 +1,6 @@
 # Megatrend Screener – Signale (Daily)
 
-**Zeitpunkt:** 2026-03-05 11:28 (Europe/Berlin)
+**Zeitpunkt:** 2026-03-05 12:23 (Europe/Berlin)
 
 **System:** Trendfilter (Close>EMA50 & EMA20>EMA50) + Pullback/Breakout/Newcomer-Radar
 

@@ -1,28 +1,28 @@
 ticker,status,reason
-MSFT,error,Can only compare identically-labeled Series objects
-AAPL,error,Can only compare identically-labeled Series objects
-AMZN,error,Can only compare identically-labeled Series objects
-GOOGL,error,Can only compare identically-labeled Series objects
-META,error,Can only compare identically-labeled Series objects
-NVDA,error,Can only compare identically-labeled Series objects
-AMD,error,Can only compare identically-labeled Series objects
-AVGO,error,Can only compare identically-labeled Series objects
-ASML,error,Can only compare identically-labeled Series objects
-TSM,error,Can only compare identically-labeled Series objects
-CRWD,error,Can only compare identically-labeled Series objects
-PANW,error,Can only compare identically-labeled Series objects
-FTNT,error,Can only compare identically-labeled Series objects
-ZS,error,Can only compare identically-labeled Series objects
-SYM,error,Can only compare identically-labeled Series objects
-ISRG,error,Can only compare identically-labeled Series objects
-TER,error,Can only compare identically-labeled Series objects
-ROK,error,Can only compare identically-labeled Series objects
-HON,error,Can only compare identically-labeled Series objects
+MSFT,no_trade,kein Setup
+AAPL,no_trade,kein Setup
+AMZN,no_trade,kein Setup
+GOOGL,no_trade,kein Setup
+META,no_trade,kein Setup
+NVDA,no_trade,kein Setup
+AMD,no_trade,kein Setup
+AVGO,no_trade,kein Setup
+ASML,no_trade,kein Setup
+TSM,no_trade,kein Setup
+CRWD,no_trade,kein Setup
+PANW,no_trade,kein Setup
+FTNT,no_trade,kein Setup
+ZS,no_trade,kein Setup
+SYM,no_trade,kein Setup
+ISRG,no_trade,kein Setup
+TER,no_trade,kein Setup
+ROK,no_trade,kein Setup
+HON,no_trade,kein Setup
 ABB,skip,zu wenig Daten
-NEE,error,Can only compare identically-labeled Series objects
-FSLR,error,Can only compare identically-labeled Series objects
-ENPH,error,Can only compare identically-labeled Series objects
-LMT,error,Can only compare identically-labeled Series objects
-RTX,error,Can only compare identically-labeled Series objects
-LLY,error,Can only compare identically-labeled Series objects
-NVO,error,Can only compare identically-labeled Series objects
+NEE,no_trade,kein Setup
+FSLR,no_trade,kein Setup
+ENPH,no_trade,kein Setup
+LMT,no_trade,kein Setup
+RTX,no_trade,kein Setup
+LLY,no_trade,kein Setup
+NVO,no_trade,kein Setup
