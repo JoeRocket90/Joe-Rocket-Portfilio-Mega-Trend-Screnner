@@ -1,6 +1,6 @@
 # Megatrend Screener – Signale (Daily)
 
-**Zeitpunkt:** 2026-05-21 19:31 (Europe/Berlin)
+**Zeitpunkt:** 2026-05-22 12:27 (Europe/Berlin)
 
 
 
