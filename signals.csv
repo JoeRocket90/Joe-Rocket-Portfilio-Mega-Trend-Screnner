@@ -1,2 +1,28 @@
-status,reason
-skip,not target hour (Berlin 09/16)
+ticker,status,reason,theme,setup,last_bar,close,ema20,ema50,ema200,rsi14,vol,vol_ma20,trigger,stop
+MSFT,no_trade,kein Setup,,,,,,,,,,,,
+AAPL,signal,,Consumer Tech,Trend-Pullback (EMA20 Reclaim),2026-08-19,316.8299865722656,312.30515894027604,309.0927157887397,282.15915273556544,53.99708502109177,50428000.0,53040380.0,Bestätigung: nächster Tag über Tageshoch ODER erneuter Close > EMA20 (312.31),Invalidation: Tagesschluss < 309.09 (unter EMA50/ATR)
+AMZN,signal,,AI / Cloud,Trend-Pullback (EMA20 Reclaim),2026-08-19,265.8399963378906,261.09524160230217,254.45101833405377,240.04760004748056,55.638761961615124,35613300.0,48888000.0,Bestätigung: nächster Tag über Tageshoch ODER erneuter Close > EMA20 (261.10),Invalidation: Tagesschluss < 254.45 (unter EMA50/ATR)
+GOOGL,no_trade,kein Setup,,,,,,,,,,,,
+META,no_trade,kein Setup,,,,,,,,,,,,
+NVDA,no_trade,kein Setup,,,,,,,,,,,,
+AMD,no_trade,kein Setup,,,,,,,,,,,,
+AVGO,no_trade,kein Setup,,,,,,,,,,,,
+ASML,no_trade,kein Setup,,,,,,,,,,,,
+TSM,no_trade,kein Setup,,,,,,,,,,,,
+CRWD,no_trade,kein Setup,,,,,,,,,,,,
+PANW,no_trade,kein Setup,,,,,,,,,,,,
+FTNT,no_trade,kein Setup,,,,,,,,,,,,
+ZS,no_trade,kein Setup,,,,,,,,,,,,
+SYM,no_trade,kein Setup,,,,,,,,,,,,
+ISRG,no_trade,kein Setup,,,,,,,,,,,,
+TER,no_trade,kein Setup,,,,,,,,,,,,
+ROK,no_trade,kein Setup,,,,,,,,,,,,
+HON,no_trade,kein Setup,,,,,,,,,,,,
+ABB,skip,zu wenig Daten,,,,,,,,,,,,
+NEE,no_trade,kein Setup,,,,,,,,,,,,
+FSLR,no_trade,kein Setup,,,,,,,,,,,,
+ENPH,no_trade,kein Setup,,,,,,,,,,,,
+LMT,no_trade,kein Setup,,,,,,,,,,,,
+RTX,no_trade,kein Setup,,,,,,,,,,,,
+LLY,signal,,Health / GLP-1,Breakout (20T Hoch + Volumen),2026-08-19,1280.3399658203125,1196.7107145953678,1161.4117080167714,1038.7697940388791,65.23006297927026,4538100.0,2793255.0,Tagesschluss > 1238.33 (Breakout über 20T-Hoch) UND Volumen > 1.2×MA20,Invalidation: Tagesschluss < 1196.71 (EMA20/ATR-Stop)
+NVO,no_trade,kein Setup,,,,,,,,,,,,
