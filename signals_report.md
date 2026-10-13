@@ -1,7 +1,8 @@
 # Megatrend Screener – Signale (Daily)
 
-**Zeitpunkt:** 2026-10-13 00:26 (Europe/Berlin)
+**Zeitpunkt:** 2026-10-13 16:55 (Europe/Berlin)
 
+**System:** Trendfilter (Close>EMA50 & EMA20>EMA50) + Pullback/Breakout/Newcomer-Radar
 
 
 **No trade** – Keine Setups erfüllen heute die Kriterien (Trendfilter + Trigger + Volumen) oder Daten sind nicht aktuell.
