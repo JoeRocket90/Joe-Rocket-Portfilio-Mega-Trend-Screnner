@@ -1,2 +1,28 @@
-status,reason
-skip,not target hour (Berlin 09/16)
+ticker,status,reason,theme,setup,last_bar,close,ema20,ema50,ema200,rsi14,vol,vol_ma20,trigger,stop
+MSFT,no_trade,kein Setup,,,,,,,,,,,,
+AAPL,no_trade,kein Setup,,,,,,,,,,,,
+AMZN,no_trade,kein Setup,,,,,,,,,,,,
+GOOGL,no_trade,kein Setup,,,,,,,,,,,,
+META,no_trade,kein Setup,,,,,,,,,,,,
+NVDA,no_trade,kein Setup,,,,,,,,,,,,
+AMD,no_trade,kein Setup,,,,,,,,,,,,
+AVGO,no_trade,kein Setup,,,,,,,,,,,,
+ASML,no_trade,kein Setup,,,,,,,,,,,,
+TSM,no_trade,kein Setup,,,,,,,,,,,,
+CRWD,signal,,Cybersecurity,Trend-Pullback (EMA20 Reclaim),2026-10-23,257.57000732421875,247.44671621027985,236.1966808071761,182.43061689554176,55.92407520944751,13367500.0,8614995.0,Bestätigung: nächster Tag über Tageshoch ODER erneuter Close > EMA20 (247.45),Invalidation: Tagesschluss < 236.20 (unter EMA50/ATR)
+PANW,signal,,Cybersecurity,Trend-Pullback (EMA20 Reclaim),2026-10-23,380.54998779296875,373.09894540460124,367.0706214378407,294.63953866148836,52.30217823048573,6582700.0,5359090.0,Bestätigung: nächster Tag über Tageshoch ODER erneuter Close > EMA20 (373.10),Invalidation: Tagesschluss < 367.07 (unter EMA50/ATR)
+FTNT,signal,,Cybersecurity,Trend-Pullback (EMA20 Reclaim),2026-10-23,179.99000549316406,178.13763279391827,171.97855914568956,138.34475396740746,53.127822042343546,3222400.0,3534150.0,Bestätigung: nächster Tag über Tageshoch ODER erneuter Close > EMA20 (178.14),Invalidation: Tagesschluss < 171.98 (unter EMA50/ATR)
+ZS,signal,,Cybersecurity,Breakout (20T Hoch + Volumen),2026-10-23,255.14999389648438,218.58948871576825,200.12029819846492,185.37170032563182,71.96228634645738,3986500.0,2754285.0,Tagesschluss > 241.19 (Breakout über 20T-Hoch) UND Volumen > 1.2×MA20,Invalidation: Tagesschluss < 231.69 (EMA20/ATR-Stop)
+SYM,no_trade,kein Setup,,,,,,,,,,,,
+ISRG,signal,,MedTech / Robotik,Breakout (20T Hoch + Volumen),2026-10-23,452.2900085449219,422.1613751191894,406.21199878921465,429.3163389520492,70.8425539849446,3004400.0,2272170.0,Tagesschluss > 444.15 (Breakout über 20T-Hoch) UND Volumen > 1.2×MA20,Invalidation: Tagesschluss < 425.84 (EMA20/ATR-Stop)
+TER,no_trade,kein Setup,,,,,,,,,,,,
+ROK,no_trade,kein Setup,,,,,,,,,,,,
+HON,no_trade,kein Setup,,,,,,,,,,,,
+ABB,skip,zu wenig Daten,,,,,,,,,,,,
+NEE,no_trade,kein Setup,,,,,,,,,,,,
+FSLR,no_trade,kein Setup,,,,,,,,,,,,
+ENPH,no_trade,kein Setup,,,,,,,,,,,,
+LMT,no_trade,kein Setup,,,,,,,,,,,,
+RTX,no_trade,kein Setup,,,,,,,,,,,,
+LLY,no_trade,kein Setup,,,,,,,,,,,,
+NVO,no_trade,kein Setup,,,,,,,,,,,,
